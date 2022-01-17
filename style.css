@@ -19,7 +19,8 @@ a {
   color: #000;
   height: auto;
   padding: 30px 30px 30px;
-  margin-right: 500px;
+  margin-right: 250px;
+  margin-left: 250px;
 }
 
 .header h1 {
