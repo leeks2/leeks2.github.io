@@ -11,7 +11,7 @@
     </head> 
     <body> 
 
-        <div class="header">
+        <div class="header" >
             <h1>Sydney's Assignment 1 - Blink!</h1>
             <p>
             For this assignment, I created a circuit of 3 LEDs which blink in sequence and then together in a pattern.
@@ -28,7 +28,7 @@
             </p>
             <p>
             A schematic of the circuit is shown above. I chose to use 220Ω resistors to keep the current below the 20 mA (.02A) limit of the LEDs. 
-            The pins send out 5V when on HIGH, and the red and yellow LEDs cause a 1.8V drop. I calculated the resistance to used based on Ohm's law (V = I*R).
+            The pins send out 5V when on HIGH, and the red and yellow LEDs cause a 1.8V drop. I calculated the resistance to use based on Ohm's law (V = I*R).
             </p>
             <b> (5 - 1.8)V = .02A * [x]Ω</b> <br>
             <b> 3.2V / .02A = [x]Ω </b> <br>
@@ -37,7 +37,10 @@
             The calculated resistance is 160Ω. I chose to use 220Ω, because it was the next highest value of the resistors I had, and a higher resistance would put the current a little bit lower than the limit.
             </p>
             <p>
-            To turn the LEDs on and off, I wrote code in Arduino based off of the BLINK example code. <br>
+            To turn the LEDs on and off, I wrote code in Arduino based off of the BLINK example code. This included setting up pins 11-13 as outputs, 
+                using a for loop to turn each LED on and off in sequence, and then finally turning each LED on then off at the same time. <br>
+                I used <code> digitalWrite() </code> to turn the voltage to each pin HIGH or LOW, and used <code> delay() </code> to set time delays between sections.
+                <br><br>
             <code>
             // the setup function runs once when you press reset or power the board <br>
             void setup() { <br>
@@ -69,12 +72,7 @@
               digitalWrite(13, LOW)  // turn LED 13 off with LOW voltage <br>
             }
             </code>
-            </p>
-            <p>
-            I wrote code to my Arduino to execute a "Blink" loop. This included setting up pins 11-13 as outputs, 
-                using a for loop to turn each LED on and off in sequence, and then finally turning each LED on then off at the same time. <br>
-                I used <code> digitalWrite() </code> to turn the voltage to each pin HIGH or LOW, and used <code> delay() </code> to set time delays between sections.
-            </p>                
+            </p>               
             <p>
             <img src="Blink_Assignment/operation.gif" width=400></a>
             </p>
