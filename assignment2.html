@@ -48,7 +48,7 @@
             Arduino Code
             </h1>
             My code has two sections; one for reading states from the button to switch between LEDs, and the other for giving each LED unique blinking/fading behavior. <br>
-                For the button, I used <code> digitalRead(button) </code>, a while loop, and state-tracking variables to switch between states 1, 2 and 3 when the button is pressed. <br>
+                For the button, I used <code> digitalRead(button)</code>, a while loop, and state-tracking variables to switch between states 1, 2 and 3 when the button is pressed. <br>
                 For the LEDs (red = state 1, yellow = state 2, green = state 3), I used <code>analogWrite()</code> for red and yellow, and <code>digitalWrite()</code> for green.
                 I made the red LED blink between a brighter and dimmer state, the yellow LED fade between bright and dim, and the green LED simply turn on/off.<br>
                 Another coding challenge I had was not being able to press the button while the light behavior loops were running. 
