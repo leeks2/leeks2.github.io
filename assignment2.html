@@ -117,6 +117,7 @@ void loop() {
     // use analogWrite to blink light brighter (200)
     analogWrite(red, 200);
     // .5 second delay
+    // for loop runs .05 sec 10 times
     for (int i = 0; i < 10; i++){
       //if statement test if the button is pressed while the loop is running, so you can exit the loop if the button is pressed
       if (digitalRead(button) == LOW){
@@ -126,6 +127,7 @@ void loop() {
     // use analogWrite to dim light
     analogWrite(red, 10);
     // .5 second delay
+    // for loop runs .05 sec 10 times
     for (int i = 0; i < 10; i++){
       //if statement test if the button is pressed while the loop is running, so you can exit the loop if the button is pressed
       if (digitalRead(button) == LOW){
@@ -145,7 +147,7 @@ void loop() {
     for (int i = 1; i <= 200; i++){
       //if statement test if the button is pressed while the loop is running, so you can exit the loop if the button is pressed
       if (digitalRead(button) == LOW){
-        analogWrite(yellow, i);
+        analogWrite(yellow, i); //turn on yellow to higher brightness
         delay(5); // .005 sec delay between each state
       }
     }
@@ -153,7 +155,7 @@ void loop() {
     for (int i = 200; i >= 1; i--){
       //if statement test if the button is pressed while the loop is running, so you can exit the loop if the button is pressed
       if (digitalRead(button) == LOW){
-        analogWrite(yellow, i);
+        analogWrite(yellow, i); //turn on yellow to lower brightness
         delay(5); // .005 sec delay between each state
       }
     }
