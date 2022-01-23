@@ -30,12 +30,12 @@
             <img src="Fade_Assignment/schematic.jpg" width=400></a>
             </p>
             <p>
-            A schematic of the circuit is shown above. <br>
-            For the button, I chose to use a 10kΩ resistor to ensure that current has a path to ground after the button switch is opened. There isn't a specific caluclation or amount of resistance needed, but a high resistance simply helps create a path for current.
+            A schematic of the circuit is shown above. <br> <br>
+            For the button, I chose to use a 10kΩ resistor to ensure that current has a path to ground after the button switch is opened. There isn't a specific calculation or amount of resistance needed, but a high resistance simply helps create a path for current.
             If the circuit doesn't have a resistor between the OUTPUT pin and ground after it's disconnected from power, the electrons won't dissipate automatically and could cause weird readings at the OUTPUT pin.
-            <br>
+            <br><br>
             For the LEDs, I chose to use 220Ω resistors to keep the current below the 20 mA (.02A) limit of the LEDs. 
-            The pins send out 5V when on HIGH, and the red, yellow and green LEDs cause a 1.8V drop. I calculated the resistance to use based on Ohm's law (V = I*R).
+            The pins send out 5V, and the red, yellow and green LEDs cause a 1.8V drop. I calculated the resistance to use based on Ohm's law (V = I*R).
             </p>
             <b> (5 - 1.8)V = .02A * [x]Ω</b> <br>
             <b> 3.2V / .02A = [x]Ω </b> <br>
@@ -44,9 +44,9 @@
             The calculated resistance is 160Ω. I chose to use 220Ω, because it was the next highest value of the resistors I had, and a higher resistance would put the current a little bit lower than the limit.
             </p>
             <p>
-            <h2>
+            <h1>
             Arduino Code
-            </h2>
+            </h1>
             My code has two sections; one for reading states from the button to switch between LEDs, and the other for giving each LED unique blinking/fading behavior. <br>
                 For the button, I used <code> digitalRead(button) </code>, a while loop, and state-tracking variables to switch between states 1, 2 and 3 when the button is pressed. <br>
                 For the LEDs (red = state 1, yellow = state 2, green = state 3), I used <code>analogWrite()</code> for red and yellow, and <code>digitalWrite()</code> for green.
