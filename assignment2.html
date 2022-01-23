@@ -44,6 +44,9 @@
             The calculated resistance is 160Ω. I chose to use 220Ω, because it was the next highest value of the resistors I had, and a higher resistance would put the current a little bit lower than the limit.
             </p>
             <p>
+            <h2>
+            Arduino Code
+            </h2>
             My code has two sections; one for reading states from the button to switch between LEDs, and the other for giving each LED unique blinking/fading behavior. <br>
                 For the button, I used <code> digitalRead(button) </code>, a while loop, and state-tracking variables to switch between states 1, 2 and 3 when the button is pressed. <br>
                 For the LEDs (red = state 1, yellow = state 2, green = state 3), I used <code>analogWrite()</code> for red and yellow, and <code>digitalWrite()</code> for green.
