@@ -58,8 +58,8 @@
             resistance of R1 (the photoresistor) to the serial monitor along with the analogRead number, as well as map this value from 0-255 
             to use with analogWrite and the LEDs. I wanted the two LEDs to flip between bright/dark, so I mapped one from 0-255 and the other from 255-0.
             <br><br>
-            The values I read from analogRead are between 0-1023, which correspond to voltage levels (0-5V). I used the analogRead value to map to 0-255 for analogWrite and the LEDs,
-            and also to calculate and print out the resistance (the analogWrite value converted to 0-5V = V-in).
+            The values I read from analogRead are between 0-1023, which correspond to voltage levels (0-5V). I used the analogRead value to map from the voltage reading to 0-255 for analogWrite and the LEDs,
+            and also to calculate and print out the resistance (the analogWrite value converted to 0-5V = V-out).
                 <br><br>
 <code> <pre>
 // this code builds on the analogRead serial example
