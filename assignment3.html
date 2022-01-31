@@ -31,14 +31,32 @@
             </p>
             <p>
             A schematic of the circuit is shown above. <br> <br>
-            The voltage divider allows you to calculate how a variable resistor is changing based on variable voltage readings from between the resistors. The calculation is shown below.
+            The voltage divider allows you to calculate how a variable resistor is changing based on variable voltage readings from between the resistors. <br>
+            For R1, I chose to use 10KΩ. There isn't a specific required resistance to use, but based on measurements I took the photoresistor varied between 150-6000Ω.
+            10KΩ is a good value to use because it isn't overly larger or smaller than the photoresistor's range, 
+            and R1 will have more precise variation with R1+R2 in the following calculation.    
             <p>
               <b> V-out = V-in * R2/(R1+R2)</b><br>
-              You can solve for R2 (our variable resistor) using <b> R2 = (V-out * R1)/(V-in - V-out)</b> where V-in is always 5V, V-out is our reading (converted from 0-1023 to 0-5), and R1 is 10KΩ.
+              You can solve for R2 (our variable resistor) using <b> R2 = (V-out * R1)/(V-in - V-out)</b> where V-in is always 5V, 
+              V-out is our reading (converted from 0-1023 to 0-5), and R1 is 10KΩ.
+            <br><br>
+            For the LEDs, I chose to use 220Ω resistors to keep the current below the 20 mA (.02A) limit of the LEDs. 
+            The pins send out 5V, and the yellow and green LEDs cause a 1.8V drop. I calculated the resistance to use based on Ohm's law (V = I*R).
+            </p>
+            <b> (5 - 1.8)V = .02A * [x]Ω</b> <br>
+            <b> 3.2V / .02A = [x]Ω </b> <br>
+            <b> x = 160</b>
+            <p>
+            The calculated resistance is 160Ω. I chose to use 220Ω, because it was the next highest value of the resistors I had, and a higher resistance would put the current a little bit lower than the limit.
+            </p>
+
             <h1>
             Arduino Code
             </h1>
-            
+            During the initial setup, my code calculates min and max readings for 5 seconds to set up a good range of values. Then, during the code loop
+            I calculate and constrain my analogRead values between min-max. I use this value to calculate and print the
+            resistance of R1 (the photoresistor) to the serial monitor along with the analogRead number, as well as map this value from 0-255 
+            to use with analogWrite and the LEDs. I wanted the two LEDs to flip between bright/dark, so I mapped one from 0-255 and the other from 255-0.
                 <br><br>
 <code> <pre>
 // this code builds on the analogRead serial example
