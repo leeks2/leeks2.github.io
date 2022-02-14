@@ -17,39 +17,20 @@
             For this assignment, I used the IR sensor and remote to change the behavior of a servo (on/off, rotation direction, and rotation speed).
             </p>
             <p>
-            <img src="Assignment3/img1.jpg" width=400></a>
-            <img src="Assignment3/img2.jpg" width=400></a>
-            <img src="Assignment3/img3.jpg" width=400></a>
+            <img src="a4/img1.jpg" width=400></a>
+            <img src="a4/img2.jpg" width=400></a>
             </p>
             <p>
-            For the voltage divider, I created a circuit from power through a 10KΩ resistor and photoresistor to ground, with an analogRead at pin A0 in between the resistors.
+            For the IR sensor, I wired the corresponding sections to power (R), ground (G), and pin 3 (Y).
             <br>
-            For each LED, I created a circuit from analog pins 9-10 through 220Ω resistors, green and yellow LEDs, and to ground.
+            For the servo motor, I wired the corresponding sections to power(red), ground (brown), and pin 9 (orange).
             </p>
             <p>
-            <img src="Assignment3/schematic.jpg" width=400></a>
+            <img src="a4/schematic.jpg" width=400></a>
             </p>
             <p>
             A schematic of the circuit is shown above. <br> <br>
-            The voltage divider allows you to calculate how a variable resistor is changing based on variable voltage readings from between the resistors. <br>
-            For R1, I chose to use 10KΩ. There isn't a specific required resistance to use, but based on measurements I took the photoresistor varied between 150-6000Ω.
-            10KΩ is a good value to use because it isn't overly larger or smaller than the photoresistor's range, 
-            and R1 will have more precise variation with R1+R2 in the following calculation.    
             <p>
-              <b> V-out = V-in * R2/(R1+R2)</b><br>
-              You can solve for R2 (our variable resistor) using <b> R2 = (V-out * R1)/(V-in - V-out)</b> where V-in is always 5V, 
-              V-out is our reading (converted from 0-1023 to 0-5), and R1 is 10KΩ.
-            <br><br>
-            For the LEDs, I chose to use 220Ω resistors to keep the current below the 20 mA (.02A) limit of the LEDs. 
-            The pins send out 5V, and the yellow and green LEDs cause a 1.8V drop. I calculated the resistance to use based on Ohm's law (V = I*R).
-            </p>
-            <b> (5 - 1.8)V = .02A * [x]Ω</b> <br>
-            <b> 3.2V / .02A = [x]Ω </b> <br>
-            <b> x = 160</b>
-            <p>
-            The calculated resistance is 160Ω. I chose to use 220Ω, because it was the next highest value of the resistors I had, and a higher resistance would put the current a little bit lower than the limit.
-            </p>
-
             <h1>
             Arduino Code
             </h1>
@@ -58,7 +39,7 @@
             to update booleans and integers related to the Servo behavior. I also print the commands and values to the
             serial monitor to keep track of what the sensor is reading.
             <br><br>
-            For the Servo, I have the angle of the servo update with the write command so it can half-rotate (0-180 degrees). 
+            For the Servo, I have the angle of the servo update with the write command so it can half-rotate in a loop (0-180 degrees). 
             These commands change from on/off, and change their direction and speed depending on what the IR remote commands were.
             <br><br>
 <code> <pre>
@@ -225,9 +206,12 @@ void loop() {
 </pre> </code>
         <p>
         The function of the circuit and code is shown in the following GIFs.
+        The first shows the on/off command, the second shows the changing speed command, and the third shows the changing direction command.
         </p>
         <p>
-        <img src="Assignment3/operation.gif" width=400></a>
+        <img src="a4/vid1.gif" width=400></a>
+        img src="a4/vid2.gif" width=400></a>
+        img src="a4/vid3.gif" width=400></a>
         </p>                
         </div>
         
