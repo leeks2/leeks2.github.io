@@ -80,7 +80,8 @@ void setup() {
     // begin serial communication
     Serial.begin(115200);
 
-    IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK); // Start the receiver, enable feedback LED, take LED feedback pin from the internal boards definition
+    // Start the receiver, enable feedback LED, take LED feedback pin from the internal boards definition
+    IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
     Serial.print(F("Ready to receive IR signals at pin "));
     Serial.println(IR_RECEIVE_PIN);
 
