@@ -17,18 +17,26 @@
             For this assignment, I used capacitive sensing to control the LED light strip (off, on, blinking, and fading in a loop).
             </p>
             <p>
-            <img src="a4/img1.jpg" width=400></a>
-            <img src="a4/img2.jpg" width=400></a>
+            <img src="A5/img1.jpg" width=400></a>
+            <img src="A5/img2.jpg" width=400></a>
+            <img src="A5/img3.jpg" width=400></a>
+            <img src="A5/img4.jpg" width=400></a>
             </p>
             <p>
-            For capacitive sensing, I wired a 1M ohm resistor between pins 4 and 2.
-            I then put an additional wire between the resistor and 2 and wrapped it in foil, so I could touch it to activate the capacitive sensing.
+            For capacitive sensing, I wired a 1M ohm resistor between pins 4 and 2.             
+            I chose 1M ohms because this was the recommended value from <a href="https://playground.arduino.cc/Main/CapacitiveSensor/">Arduino playground</a> to activate the sensor with absolute touch.
+            I then put a wire between the resistor and pin 2 and wrapped it in foil, so I could touch it to activate the capacitive sensing.
+            <br><br>
+            For the LED strip, I wired from my 12V power source, through the positive and negative ends in the LED strip, and through an N-MOSFET transistor.
+            The transistor is wired through power and ground, and also to the Arduino at pin 9 to control the power supply. I also made sure to connect the Arduino ground and power supply ground through the negative rail of my breadboard.
             <br>
-            For the LED strip, I wired from my power source, through the positive and negative ends in the LED strip, and through an N-MOSFET transistor.
-            The transistor wired through power and ground, and also to the Arduino at pin 9 to control the power supply. I also made sure to connect the Arduino ground and power supply ground through the negative rail of my breadboard.
+            The transistor has a drain current of up to 32A. Our power supply runs at 2A, so it's safe for our transistor. 
+            <br>
+            The LED strip also has 3 LEDs and 240 ohm resistor circuits in parallel, with 300 lights total. Each LED causes a 3.3V drop, and each parallel circuit has (12 - 3.3 * 3)V = 240 I, or 8.75mA of current.
+            8.75mA per circuit * 100 parallel circuits = .875A total, which is also lower than the transistor maximum drain current of 32A.
             </p>
             <p>
-            <img src="a4/schematic.jpg" width=400></a>
+            <img src="A5/schematic.jpg" width=400></a>
             </p>
             <p>
             A schematic of the circuit is shown above. <br> <br>
@@ -42,7 +50,6 @@
             also takes capacitive touch readings and tests, so that the fade loop can be exited if the sensor is activated.
             <br><br>
 <code> <pre>
-// code to test how many times capacitive touch is activated, and to loop through a LED strip pattern of off, on, blink, and fade with each touch
 // example capacitive sensor code from lecture and https://playground.arduino.cc/Main/CapacitiveSensor/
 
 // average metric for calibrating capacitive touch
@@ -115,7 +122,8 @@ void loop()
     }
     
     // light pattern - off on blink fade
- 
+
+    
     if (count%4 == 1){
       // at part 2 of the pattern, light is on (150/255)
       analogWrite(9, 150);
@@ -133,15 +141,15 @@ void loop()
     else if (count%4 == 3){
       // at part 4 of the pattern, light is fading
       // for loop to fade up
-      for (int i = 0; i <= 255; i++){
+      for (int i = 0; i <= 150; i++){
         // test if sensor is touched to exit the fade loop
         test =  cs_4_2.capacitiveSensor(30);
         // if not touched
         if (test < avg and count == ref){
-          // analogWrite up to 255
+          // analogWrite up to 150
           analogWrite(9, i);
-          //.01 sec delay
-          delay(10);
+          //.005 sec delay
+          delay(5);
         }
         // update count if sensor touched during loop
         else{
@@ -149,15 +157,15 @@ void loop()
         }
       }
       // for loop to fade down
-      for (int i = 255; i >= 0; i--){
+      for (int i = 150; i >= 0; i--){
         // test if sensor is touched to exit the fade loop
         test =  cs_4_2.capacitiveSensor(30);
         // if not touched
         if (test < avg and count == ref){
-          // analogWrite up to 255
+          // analogWrite up to 150
           analogWrite(9, i);
-          //.01 sec delay
-          delay(10);
+          //.005 sec delay
+          delay(5);
         }
         // update count if sensor touched during loop
         else{
@@ -173,12 +181,13 @@ void loop()
 }
 </pre> </code>
         <p>
-        The function of the circuit and code is shown in the following GIF.
+        The function of the circuit and code is shown in the following GIFs. They show the transition from off to on, on to blinking, blinking to fading, and fading to off.
         </p>
         <p>
-        <img src="a4/vid1.gif" width=400></a>
-        <img src="a4/vid2.gif" width=400></a>
-        <img src="a4/vid3.gif" width=400></a>
+        <img src="A5/part1.gif" width=400></a>
+        <img src="A5/part2.gif" width=400></a>
+        <img src="A5/part3.gif" width=400></a>
+        <img src="A5/part4.gif" width=400></a>
         </p>                
         </div>
         
