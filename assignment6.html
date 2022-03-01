@@ -26,8 +26,18 @@
             For the joystick, I wired through power and ground, and connected Vrx and Vry to analog read pins A0 and A1 respectively.
             The joystick is basically two potentiometers, and will return different voltage readings depending on its position along x and y.
             <br><br>
-            For the RGB LED, I wired each color through analog pins 9-11, 220Ω resistors, and to ground. I chose 220Ω to ensure the RGB LED current was below the 30mA limit.
-            Red and green LEDs cause a 1.8V drop, and blue LEDs cause a 3.3V drop.
+            For the RGB LED, I wired each color through analog pins 9-11, 220Ω resistors, and to ground. I chose 220Ω to ensure the RGB LED current was below the 20mA limit.
+            Red and green LEDs cause a 1.8V drop, and blue LEDs cause a 3.3V drop. I calculated the resistance to use based on Ohm's law (V = I*R).
+            </p>
+            <b> (5 - 1.8)V = .02A * [x]Ω</b> <br>
+            <b> 3.2V / .02A = [x]Ω </b> <br>
+            <b> x = 160</b>
+            <p>
+            <b> (5 - 3.3)V = .02A * [x]Ω</b> <br>
+            <b> 1.7V / .02A = [x]Ω </b> <br>
+            <b> x = 85</b>
+            The calculated resistance is 160Ω for red and green and 85Ω for blue LEDs. I chose to use 220Ω, because it was the next highest value of the resistors I had, and a higher resistance would put the current a little bit lower than the limit.
+            </p>
             </p>
             <p>
             <img src="A6/schematic.jpg" width=400></a>
