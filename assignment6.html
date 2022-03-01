@@ -35,7 +35,7 @@
             <p>
             <b> (5 - 3.3)V = .02A * [x]Ω</b> <br>
             <b> 1.7V / .02A = [x]Ω </b> <br>
-            <b> x = 85</b>
+            <b> x = 85</b> <br><br>
             The calculated resistance is 160Ω for red and green and 85Ω for blue LEDs. I chose to use 220Ω, because it was the next highest value of the resistors I had, and a higher resistance would put the current a little bit lower than the limit.
             </p>
             </p>
@@ -49,7 +49,7 @@
             Arduino Code
             </h1>
 My Arduino code gets analogRead values from the joystick corresponding to its x and y position, maps the values to correspond to the 
-dimensiosn of my javascript page, and sends it over serial communication in the JSON-readable format [x,y]. This is used to control the circle position
+dimensions of my javascript page, and sends it over serial communication in the JSON-readable format [x,y]. This is used to control the circle position
 in my javascript page. The code also checks if a color string is sent over serial from the computer, and runs "red", "green" or "blue" behavior for the RGB LED depending on what is received.
             <br><br>
 <code> <pre>
