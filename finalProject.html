@@ -39,19 +39,19 @@
             <p>
             For the joystick, I wired through power and ground, and connected Vrx and Vry to analog read pins A0 and A1 respectively.
             The joystick is basically two potentiometers, and will return different voltage readings depending on its position along x and y.
-            <br>
+            <br><br>
             For the button, I wired between power, Pin 13, a 10kΩ resistor, and ground. I use digitalRead on Pin 13 to determine when power is HIGH and the button is being pressed.
             The 10kΩ resistor gives a path for power to flow once the button is released and the circuit is broken.
-            <br>
+            <br><br>
             For the red LED, I wired through Pin 2, a 220Ω resistor, and to ground. I chose 220Ω to ensure the red LED current was below the 20mA limit.
-            Red LEDs cause a 1.8V drop. I calculated the resistance to use based on Ohm's law (V = I*R). <br><br>
+            Red LEDs cause a 1.8V drop. I calculated the resistance to use based on Ohm's law (V = I*R). <br>
             <b> (5 - 1.8)V = .02A * [x]Ω</b> <br>
             <b> 3.2V / .02A = [x]Ω </b> <br>
             <b> x = 160</b><br>
             The calculated resistance is 160Ω for red LEDs. I chose to use 220Ω, because it was the next highest value of the resistors I had, 
-            and a higher resistance would put the current a little bit lower than the limit.<br>
+            and a higher resistance would put the current a little bit lower than the limit.<br><br>
             For the buzzer, I made a simple circuit from Pin 11 through the buzzer to ground. I used an analog pin because I wanted to be able to use analogWrite to 
-            control the buzzer volume. <br>
+            control the buzzer volume. <br><br>
             Finally, for the 7-segment display I used Pins 3-10 (8 total), wired through 220Ω resistors to each part of the display (similar to current limits for the red LED). The display has a common ground pin.
             Having different pins for each part of the display lets you control each segment to display different numbers.
             </p>
@@ -99,10 +99,10 @@ void setup() {
   Serial.begin(9600);
   // buzzer
   pinMode(11, OUTPUT);
-      int i;
   // light
   pinMode(2, OUTPUT);
   // number display
+        int i;
   for(i=3;i<=10;i++) 
       pinMode(i,OUTPUT);
 }
@@ -113,10 +113,10 @@ void loop() {
   // map from analogread() values to the dimensions of the screen (60 to 200 and 60 to 650)
   xval = map(analogRead(x), 0, 1023, 60, 200);
   yval = map(analogRead(y), 0, 1023, 60, 650);
-  // test for button press
+  // test for button press (0 or 1)
   button = digitalRead(13);
   
-  //print out x, y and button input from joystick in json readable format
+  //print out x, y and button input in json readable format
   Serial.print("[");
   Serial.print(xval);
   Serial.print(",");
@@ -134,6 +134,7 @@ void loop() {
  if (testLives != lives and lives != 5 and lives != 10){
   // clear display to start, and also set a buzzer timer for when lives change
   clearDisplay();
+  // buzz when lives change
   buzzCount = 10;
  }
  // display number for each lives count
@@ -163,13 +164,13 @@ void loop() {
     }
   }
 
-  // lives = 10 means a laser was shot
-  //serial code testing for laser shoot to activate light
+  // lives = 10 means a laser was shot, activate LED
   else if (lives == 10){
     // reset lives to testLives so lives still display correctly
     lives = testLives;
     lightCount = 15;
   }
+  // set testLives to lives at end of each loop
   testLives = lives; 
 
   //buzz if buzzCount activated
@@ -200,7 +201,7 @@ void loop() {
 }
 
 
-// pin nums for the 1 digit display
+// pin nums for the 7-segment display
 int a=6; 
 int b=5; 
 int c=4; 
@@ -259,10 +260,10 @@ void clearDisplay(void)
     digitalWrite(a,LOW);
     digitalWrite(b,LOW);
     digitalWrite(g,LOW);
-  digitalWrite(c,LOW);
+    digitalWrite(c,LOW);
     digitalWrite(d,LOW);  
     digitalWrite(e,LOW);  
-  digitalWrite(f,LOW);  
+    digitalWrite(f,LOW);  
 } 
 </pre> </code>
         <p>
@@ -277,17 +278,20 @@ to draw a spaceship at (x,y). The code also checks for button presses, and fires
 The P5 page communicates over serial when player lives change or a laser is fired, in order to affect digital output on the Arduino.
             <br><br>
 <code> <pre>
+// this code draws from the class serial communication example
+
 var serial; // variable to hold an instance of the serialport library
 var portName = 'COM3' //rename to the name of your port
 var dataarray = []; //some data coming in over serial!
 // color variable
 var c = 'red';
 
-//game record variables
+//game recording variables
 var start = false;
 var lives = 5;
 // test if lives change
 var testLives = 6;
+//score
 var score = 0;
 var adjustScore = 0;
 var highScore = 0;
@@ -379,14 +383,13 @@ function keyTyped() {
   } else if (key === 'b') { // test for b, set blue and hex
     c = 'blue';
   }
-  // send the updated color to serial monitor
 }
 
 function draw() {
   // black background + white text
   background(0);
   fill(255);
-  // print out score, lives, and instructions to change color
+  // print out lives, score, and instructions to change color
   textSize(20);
   text("Lives: " + lives, 30, 30);
   text("Score: " + adjustScore, 120, 30);
@@ -398,6 +401,7 @@ function draw() {
       if (testLives != lives){
         serial.write(lives);
       }
+      //reset testLives
       testLives = lives;
 
       //make lasers
@@ -458,8 +462,8 @@ function draw() {
         serial.write(0);
       }
     }
- else{
-    // at beginning, prompt for button press to start game
+ else{ //not start
+    // title screen at beginning, prompt for button press to start game
     textSize(100);
     fill(color('magenta'));
     text("Asteroid Shoot", 350, 350);
@@ -468,7 +472,7 @@ function draw() {
     text("Press Button to Start", 350, 400);
     // display high score
     text("High Score: " + highScore, 350, 450);
-    // if serial array says buttonpress = true, restart game
+    // if serial array says buttonpress = 1, restart game
     if (dataarray[2] == 1){
       start = true;
     }
@@ -535,7 +539,7 @@ function makeLasers(){
     }
   }
 
-  // if the previous laser has reacehed position 500, the next laser can be created
+  // if the previous laser has reached position 500, the next laser can be created
   if (laser[laserNum][1] >= 500){
     laserNum++;
     // reset index at end
@@ -567,7 +571,7 @@ function testLaserCollision(){
               //set laser + enemy as dead
               laser[i][0] = true;
               enemy[j][0] = true;
-              // 100 points per enemy killed
+              // 100 points per enemy killed by a laser
               adjustScore += 100;
             }
           }
